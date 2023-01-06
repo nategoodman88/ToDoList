@@ -1,4 +1,4 @@
-# To Do List Quasar App. WIP. 
+# To Do List Quasar App. Backend with Directus. Current WIP. 
 
 A Quasar Project
 
