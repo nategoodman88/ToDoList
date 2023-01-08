@@ -3,6 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title> To Do List </q-toolbar-title>
+        <q-btn to="/logout" label="Logout"></q-btn>
       </q-toolbar>
     </q-header>
 

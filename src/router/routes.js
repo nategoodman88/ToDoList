@@ -1,3 +1,5 @@
+import { directus } from "src/directus";
+
 const routes = [
   {
     path: "/",
@@ -11,6 +13,22 @@ const routes = [
   {
     path: "/signup",
     component: () => import("pages/SignUp-Page.vue"),
+  },
+
+  {
+    path: "/logout",
+    component: {
+      async beforeRouteEnter(to, from, next) {
+        try {
+          await directus.auth.logout();
+        } catch (error) {
+        } finally {
+          next({
+            path: "/",
+          });
+        }
+      },
+    },
   },
   // Always leave this as last one,
   // but you can also remove it

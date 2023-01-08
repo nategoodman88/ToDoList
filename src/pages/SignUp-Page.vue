@@ -16,17 +16,7 @@
           >
           </q-input>
         </q-form>
-        <q-form class="q-gutter-md">
-          <q-input
-            filled
-            dark
-            outlined
-            label="Username"
-            placeholder="User"
-            v-model="login.username"
-          >
-          </q-input>
-        </q-form>
+
         <q-form class="q-gutter-md">
           <q-input
             filled
@@ -41,7 +31,7 @@
         </q-form>
         <q-btn label="signup" class="full-width" @click="submitForm"></q-btn>
         <q-btn
-          to="/login"
+          to="/"
           label="Already a user? Click here to log in!"
           class="full-width"
           type="submit"
@@ -56,19 +46,18 @@ export default {
     return {
       login: {
         email: "",
-        username: "",
         password: "",
       },
     };
   },
   methods: {
     submitForm() {
-      if (!this.login.email || !this.login.username || !this.login.password) {
+      if (!this.login.email || !this.login.password) {
         this.$q.notify({
-          message: "Invalid username, passowrd, or email!",
+          message: "Invalid passowrd, or email!",
         });
       } else {
-        window.location.href = "#/";
+        this.$router.push("/");
       }
     },
   },

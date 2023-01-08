@@ -47,35 +47,7 @@
 </template>
 
 <script>
-import { Directus } from "@directus/sdk";
-
-const config = {
-  auth: {
-    mode: "json",
-    autoRefresh: true,
-    msRefreshBeforeExpires: 30000,
-    staticToken: "J31wVPnvJs_uutXQO-QRJ900efpRsq-c",
-  },
-};
-
-const directus = new Directus("https://yb940bgp.directus.app/");
-
-async function testDirectus() {
-  let authenticated = false;
-
-  await directus.auth.refresh().then(() => {
-    authenticated = true;
-  });
-
-  const publicData = await directus
-    .items("Users")
-    .readByQuery({ sort: ["id"] });
-  console.log(publicData.data);
-}
-
-window.onload = () => {
-  testDirectus();
-};
+import { directus } from "src/directus";
 export default {
   data() {
     return {
@@ -86,13 +58,17 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      if (!this.login.username || !this.login.password) {
-        this.$q.notify({
-          message: "Wrong username or password!",
+    async submitForm() {
+      try {
+        await directus.auth.login({
+          email: this.login.username,
+          password: this.login.password,
         });
-      } else {
-        window.location.href = "#/home";
+        this.$router.push("/home");
+      } catch (error) {
+        this.$q.notify({
+          message: error.message,
+        });
       }
     },
   },
