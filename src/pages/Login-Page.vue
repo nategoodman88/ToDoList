@@ -10,9 +10,9 @@
             filled
             dark
             outlined
-            label="Username"
-            placeholder="User"
-            v-model="login.username"
+            label="email"
+            placeholder="email@example.com"
+            v-model="login.email"
           >
           </q-input>
         </q-form>
@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       login: {
-        username: "",
+        email: "",
         password: "",
       },
     };
@@ -61,8 +61,9 @@ export default {
     async submitForm() {
       try {
         await directus.auth.login({
-          email: this.login.username,
+          email: this.login.email,
           password: this.login.password,
+          mode: "cookie",
         });
         this.$router.push("/home");
       } catch (error) {

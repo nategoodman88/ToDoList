@@ -16,11 +16,12 @@ const routes = [
   },
 
   {
+    // Not working atm, why?
     path: "/logout",
     component: {
       async beforeRouteEnter(to, from, next) {
         try {
-          await directus.auth.logout();
+          await directus.auth.logout(); //Not supported by Directuscloud at the moment
         } catch (error) {
         } finally {
           next({

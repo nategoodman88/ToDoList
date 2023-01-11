@@ -41,6 +41,7 @@
   </q-card>
 </template>
 <script>
+import { directus } from "src/directus";
 export default {
   data() {
     return {
@@ -51,13 +52,17 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      if (!this.login.email || !this.login.password) {
-        this.$q.notify({
-          message: "Invalid passowrd, or email!",
+    async submitForm() {
+      try {
+        await directus.auth.login({
+          email: this.login.email,
+          password: this.login.password,
         });
-      } else {
         this.$router.push("/");
+      } catch (error) {
+        this.$q.notify({
+          message: error.message,
+        });
       }
     },
   },
